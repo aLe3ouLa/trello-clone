@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useAppState } from "./AppStateContext";
+import { Column } from "./components/Column/Column";
+import { CreateItem } from "./components/CreateItem/CreateItem";
 
 function App() {
+  const { state, dispatch } = useAppState();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className="flex items-start bg-sky-700 p-10"
+      style={{ width: "100vw", height: "100vh" }}
+    >
+      {state.lists.map((list, index) => {
+        return <Column text={list.text} key={list.id} index={index} id={list.id} />;
+      })}
+
+      <CreateItem
+        toggleButtonText="+ Add another list"
+        onCreate={(text) => dispatch({ type: "ADD_LIST", payload: text })}
+      />
     </div>
   );
 }
