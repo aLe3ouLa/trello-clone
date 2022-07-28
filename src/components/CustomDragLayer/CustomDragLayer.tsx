@@ -1,5 +1,5 @@
 import { useDragLayer, XYCoord } from 'react-dnd';
-import { Column } from '../Column/Column';
+import { Lane } from '../Column/Lane';
 
 function getItemStyles(currentOffset: XYCoord | null): React.CSSProperties {
   if (!currentOffset) {
@@ -26,7 +26,7 @@ export const CustomDragLayer: React.FC = () => {
   return isDragging ? (
     <div className="h-full fixed left-0 pointer-events-none top-0 z-100">
       <div style={getItemStyles(currentOffset)}>
-        <Column id={item.id} text={item.text} index={item.index} isPreview />
+        <Lane id={item.id} text={item.text} index={item.index} isPreview />
       </div>
     </div>
   ) : null;

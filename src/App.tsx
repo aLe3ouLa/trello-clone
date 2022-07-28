@@ -1,6 +1,6 @@
 import { useAppState } from './AppStateContext';
-import { Actions } from './AppStateTypes';
-import { Column } from './components/Column/Column';
+import { Actions, List } from './AppStateTypes';
+import { Lane } from './components/Column/Lane';
 import { CreateItem } from './components/CreateItem/CreateItem';
 import { CustomDragLayer } from './components/CustomDragLayer/CustomDragLayer';
 import { Menu } from './components/Menu/Menu';
@@ -16,9 +16,9 @@ function App() {
         style={{ width: '100vw', height: '100vh' }}
       >
         <CustomDragLayer />
-        {state.lists.map((list, index) => {
+        {state.lists.map((list: List, index: number) => {
           return (
-            <Column text={list.text} key={list.id} index={index} id={list.id} />
+            <Lane text={list.text} key={list.id} index={index} id={list.id} />
           );
         })}
 

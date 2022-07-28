@@ -1,21 +1,21 @@
+import { useRef } from 'react';
+import { useDrop } from 'react-dnd';
 import { useAppState } from '../../AppStateContext';
+import { Actions } from '../../AppStateTypes';
+import { useDragItem } from '../../hooks/useDragItem';
+import { isHidden } from '../../utils/isHidden';
 import { Card } from '../Card/Card';
 import { CreateItem } from '../CreateItem/CreateItem';
-import { useRef } from 'react';
-import { useDragItem } from '../../hooks/useDragItem';
-import { useDrop } from 'react-dnd';
-import { CardDragItem, LaneDragItem } from '../DragAndDrop/LaneDragItem';
-import { isHidden } from '../../utils/isHidden';
-import { Actions } from '../../AppStateTypes';
+import { CardDragItem, LaneDragItem } from '../CustomDragLayer/LaneDragItem';
 
-interface ColumnProps {
+interface LaneProps {
   text: string;
   index: number;
   id: string;
   isPreview?: boolean;
 }
 
-export const Column = ({ text, index, id, isPreview }: ColumnProps) => {
+export const Lane = ({ text, index, id, isPreview }: LaneProps) => {
   const { state, dispatch } = useAppState();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -73,15 +73,18 @@ export const Column = ({ text, index, id, isPreview }: ColumnProps) => {
       `}
     >
       <h2 className="pb-2 font-bold ">{text}</h2>
-      {state.lists[index].tasks.map((task) => (
-        <Card
-          text={task.text}
-          key={task.id}
-          index={index}
-          id={task.id}
-          laneId={`${index}`}
-        />
-      ))}
+
+      {state.lists &&
+        state.lists?.[index]?.tasks?.map((task) => (
+          <Card
+            text={task.text}
+            key={task.id}
+            index={index}
+            id={task?.id}
+            laneId={`${index}`}
+          />
+        ))}
+
       <CreateItem
         toggleButtonText="+ Add a card"
         onCreate={handleCreate}
