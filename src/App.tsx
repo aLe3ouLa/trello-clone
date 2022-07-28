@@ -1,6 +1,7 @@
 import { useAppState } from './AppStateContext';
 import { Column } from './components/Column/Column';
 import { CreateItem } from './components/CreateItem/CreateItem';
+import { CustomDragLayer } from './components/CustomDragLayer/CustomDragLayer';
 import { Menu } from './components/Menu/Menu';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         className="flex items-start bg-sky-700 p-10"
         style={{ width: '100vw', height: '100vh' }}
       >
+        <CustomDragLayer />
         {state.lists.map((list, index) => {
           return (
             <Column text={list.text} key={list.id} index={index} id={list.id} />
