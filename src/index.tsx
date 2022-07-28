@@ -12,10 +12,10 @@ const root = ReactDOM.createRoot(
 root.render(
   //@ts-ignore
   <DndProvider backend={HTML5Backend}>
-    <React.StrictMode>
-      <AppStateProvider>
-        <App />
-      </AppStateProvider>
-    </React.StrictMode>
+    {/* <React.StrictMode> */}
+    <AppStateProvider>
+      <App />
+    </AppStateProvider>
+    {/* </React.StrictMode> */}
   </DndProvider>
 );

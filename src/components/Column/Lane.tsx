@@ -6,11 +6,7 @@ import { useDragItem } from '../../hooks/useDragItem';
 import { isHidden } from '../../utils/isHidden';
 import { Card } from '../Card/Card';
 import { CreateItem } from '../CreateItem/CreateItem';
-import {
-  CardDragItem,
-  DragTypes,
-  LaneDragItem,
-} from '../CustomDragLayer/DragItemTypes';
+import { DragItem, DragTypes } from '../CustomDragLayer/DragItemTypes';
 
 interface LaneProps {
   text: string;
@@ -26,36 +22,40 @@ export const Lane = ({ text, index, id, isPreview }: LaneProps) => {
   const { drag } = useDragItem({ type: DragTypes.LANE, id, index, text });
 
   const handleCreate = (text: string) => {
-    dispatch({ type: Actions.ADD_TASK, payload: { text, taskId: id } });
+    dispatch({ type: Actions.ADD_TASK, payload: { text, listId: id } });
   };
 
   const [, drop] = useDrop({
-    accept: ['COLUMN', 'CARD'],
-    hover(item: LaneDragItem | CardDragItem) {
+    accept: [DragTypes.LANE, DragTypes.CARD],
+    hover(item: DragItem) {
       if (item.type === DragTypes.LANE) {
         const dragIndex = item.index;
-        const hoverIndex = index;
-        if (dragIndex === hoverIndex) {
+        const hoverIndex = id;
+
+        if (dragIndex === +hoverIndex) {
           return;
         }
 
         dispatch({
           type: Actions.MOVE_LIST,
-          payload: { draggedIdx: dragIndex, hoverIdx: hoverIndex },
+          payload: { draggedIdx: dragIndex, hoverIdx: +hoverIndex },
         });
-        item.index = hoverIndex;
+        item.index = +hoverIndex;
       } else {
         const dragIndex = item.index;
         const hoverIndex = 0;
         const sourceLane = item.laneId;
         const targetLane = id;
+
         if (sourceLane === targetLane) {
           return;
         }
+
         dispatch({
           type: Actions.MOVE_TASK,
           payload: { dragIndex, hoverIndex, sourceLane, targetLane },
         });
+
         item.index = hoverIndex;
         item.laneId = targetLane;
       }
@@ -64,13 +64,15 @@ export const Lane = ({ text, index, id, isPreview }: LaneProps) => {
 
   drag(drop(ref));
 
+  console.log(state.lists);
+
   return (
     <section
       ref={ref}
-      className={`bg-slate-300 mr-4 rounded-sm min-h-min p-4 flex-grow-0 min-w-[300px]
+      className={`bg-slate-300 mr-4 rounded-sm h-min p-4 flex-grow-0 w-max-[300px]
       ${isPreview ? 'rotate-6' : 'rotate-0'}
       ${
-        isHidden(isPreview, state.draggedItem, 'COLUMN', id)
+        isHidden(isPreview, state.draggedItem, DragTypes.LANE, id)
           ? 'opacity-0'
           : 'opacity-100'
       }
@@ -79,15 +81,20 @@ export const Lane = ({ text, index, id, isPreview }: LaneProps) => {
       <h2 className="pb-2 font-bold ">{text}</h2>
 
       {state.lists &&
-        state.lists[index]?.tasks?.map((task: Task) => (
-          <Card
-            text={task?.text}
-            key={task?.id}
-            index={index}
-            id={task?.id}
-            laneId={`${index}`}
-          />
-        ))}
+        state.lists[index]?.tasks
+          ?.filter((task) => Boolean(task))
+          .map((task: Task, i: number) => {
+            console.log(index, task);
+            return (
+              <Card
+                id={task.id}
+                laneId={id}
+                text={task.text}
+                key={task.id}
+                index={i}
+              />
+            );
+          })}
 
       <CreateItem
         toggleButtonText="+ Add a card"

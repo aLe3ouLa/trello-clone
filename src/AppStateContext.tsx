@@ -56,9 +56,9 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
       };
     }
     case 'ADD_TASK': {
-      const { taskId, text } = action.payload;
+      const { listId, text } = action.payload;
 
-      const targetLaneIndex = findItemIndexById(state.lists, taskId);
+      const targetLaneIndex = findItemIndexById(state.lists, listId);
 
       let newStateTasks = [...state.lists];
 
@@ -90,10 +90,15 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
     case 'MOVE_TASK': {
       const { dragIndex, hoverIndex, sourceLane, targetLane } = action.payload;
 
+      console.log('PAYLOAD', action.payload);
+
       const sourceLaneIndex = findItemIndexById(state.lists, sourceLane);
       const targetLaneIndex = findItemIndexById(state.lists, targetLane);
       const item = state.lists[sourceLaneIndex].tasks.splice(dragIndex, 1)[0];
+      console.log('HERE', state.lists, item);
       state.lists[targetLaneIndex].tasks.splice(hoverIndex, 0, item);
+
+      console.log('LISTS', state.lists);
 
       return { ...state };
     }

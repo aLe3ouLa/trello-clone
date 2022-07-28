@@ -3,16 +3,20 @@ import { useDrop } from 'react-dnd';
 import { useAppState } from '../../AppStateContext';
 import { Actions } from '../../AppStateTypes';
 import { useDragItem } from '../../hooks/useDragItem';
+import { isHidden } from '../../utils/isHidden';
 import { CardDragItem, DragTypes } from '../CustomDragLayer/DragItemTypes';
 interface CardProps {
   text: string;
   index: number;
   id: string;
   laneId: string;
+  isPreview?: boolean;
 }
 
-export const Card = ({ text, id, index, laneId }: CardProps) => {
-  const { dispatch } = useAppState();
+export const Card = ({ text, id, index, laneId, isPreview }: CardProps) => {
+  const { state, dispatch } = useAppState();
+  const ref = useRef<HTMLDivElement>(null);
+
   const { drag } = useDragItem({
     type: DragTypes.CARD,
     id,
@@ -20,14 +24,16 @@ export const Card = ({ text, id, index, laneId }: CardProps) => {
     text,
     laneId,
   });
-  const ref = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({
     accept: 'CARD',
     hover(item: CardDragItem) {
+      // if (!item) return;
+
       if (item.id === id) {
         return;
       }
+
       const dragIndex = item.index;
       const hoverIndex = index;
       const sourceLane = item.laneId;
@@ -37,6 +43,7 @@ export const Card = ({ text, id, index, laneId }: CardProps) => {
         type: Actions.MOVE_TASK,
         payload: { dragIndex, hoverIndex, sourceLane, targetLane },
       });
+
       item.index = hoverIndex;
       item.laneId = targetLane;
     },
@@ -47,7 +54,15 @@ export const Card = ({ text, id, index, laneId }: CardProps) => {
   return (
     <article
       ref={ref}
-      className="bg-slate-50 cursor-pointer mb-1 p-2 max-w-100 rounded-sm shadow-black"
+      className={`bg-slate-50 cursor-pointer mb-1 p-2 w-min-[300px] rounded-sm shadow-black  ${
+        isPreview ? 'rotate-6' : 'rotate-0'
+      }
+      ${
+        isHidden(isPreview, state.draggedItem, DragTypes.CARD, id)
+          ? 'opacity-20'
+          : 'opacity-100'
+      }
+      `}
     >
       {text}
     </article>

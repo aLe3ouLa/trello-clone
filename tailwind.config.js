@@ -9,7 +9,7 @@ module.exports = {
       '1/2': '50%',
     },
     minWidth: {
-      '1/3': '300px',
+      '1/4': '300px',
     }
   },
   plugins: [],

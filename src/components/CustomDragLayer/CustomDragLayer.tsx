@@ -1,5 +1,7 @@
 import { useDragLayer, XYCoord } from 'react-dnd';
+import { Card } from '../Card/Card';
 import { Lane } from '../Column/Lane';
+import { DragTypes } from './DragItemTypes';
 
 function getItemStyles(currentOffset: XYCoord | null): React.CSSProperties {
   if (!currentOffset) {
@@ -8,7 +10,6 @@ function getItemStyles(currentOffset: XYCoord | null): React.CSSProperties {
     };
   }
   const { x, y } = currentOffset;
-  console.log(x, y);
   const transform = `translate(${x}px, ${y}px)`;
   return {
     transform,
@@ -24,9 +25,19 @@ export const CustomDragLayer: React.FC = () => {
   }));
 
   return isDragging ? (
-    <div className="h-full fixed left-0 pointer-events-none top-0 z-100">
+    <div className="h-full fixed left-0 pointer-events-none top-0 z-50">
       <div style={getItemStyles(currentOffset)}>
-        <Lane id={item.id} text={item.text} index={item.index} isPreview />
+        {item.type === DragTypes.LANE ? (
+          <Lane id={item.id} text={item.text} index={item.index} isPreview />
+        ) : (
+          <Card
+            id={item.id}
+            text={item.text}
+            index={item.index}
+            laneId={item.laneId}
+            isPreview
+          />
+        )}
       </div>
     </div>
   ) : null;

@@ -36,7 +36,7 @@ export type Action =
     }
   | {
       type: Actions.ADD_TASK;
-      payload: { text: string; taskId: string };
+      payload: { text: string; listId: string };
     }
   | {
       type: Actions.MOVE_LIST;
