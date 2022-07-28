@@ -1,8 +1,13 @@
+export enum DragTypes {
+  LANE = 'LANE',
+  CARD = 'CARD',
+}
+
 export type LaneDragItem = {
   index: number;
   id: string;
   text: string;
-  type: 'COLUMN';
+  type: DragTypes.LANE;
 };
 
 export type CardDragItem = {
@@ -10,7 +15,7 @@ export type CardDragItem = {
   id: string;
   laneId: string;
   text: string;
-  type: 'CARD';
+  type: DragTypes.CARD;
 };
 
 export type DragItem = LaneDragItem | CardDragItem;

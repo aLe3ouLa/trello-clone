@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 import { useAppState } from '../../AppStateContext';
 import { Actions } from '../../AppStateTypes';
 import { useDragItem } from '../../hooks/useDragItem';
-import { CardDragItem } from '../CustomDragLayer/LaneDragItem';
+import { CardDragItem, DragTypes } from '../CustomDragLayer/LaneDragItem';
 interface CardProps {
   text: string;
   index: number;
@@ -13,7 +13,13 @@ interface CardProps {
 
 export const Card = ({ text, id, index, laneId }: CardProps) => {
   const { dispatch } = useAppState();
-  const { drag } = useDragItem({ type: 'CARD', id, index, text, laneId });
+  const { drag } = useDragItem({
+    type: DragTypes.CARD,
+    id,
+    index,
+    text,
+    laneId,
+  });
   const ref = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({

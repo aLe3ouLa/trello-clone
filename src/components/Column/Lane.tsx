@@ -6,7 +6,11 @@ import { useDragItem } from '../../hooks/useDragItem';
 import { isHidden } from '../../utils/isHidden';
 import { Card } from '../Card/Card';
 import { CreateItem } from '../CreateItem/CreateItem';
-import { CardDragItem, LaneDragItem } from '../CustomDragLayer/LaneDragItem';
+import {
+  CardDragItem,
+  DragTypes,
+  LaneDragItem,
+} from '../CustomDragLayer/LaneDragItem';
 
 interface LaneProps {
   text: string;
@@ -19,7 +23,7 @@ export const Lane = ({ text, index, id, isPreview }: LaneProps) => {
   const { state, dispatch } = useAppState();
   const ref = useRef<HTMLDivElement>(null);
 
-  const { drag } = useDragItem({ type: 'COLUMN', id, index, text });
+  const { drag } = useDragItem({ type: DragTypes.LANE, id, index, text });
 
   const handleCreate = (text: string) => {
     dispatch({ type: Actions.ADD_TASK, payload: { text, taskId: id } });
@@ -28,7 +32,7 @@ export const Lane = ({ text, index, id, isPreview }: LaneProps) => {
   const [, drop] = useDrop({
     accept: ['COLUMN', 'CARD'],
     hover(item: LaneDragItem | CardDragItem) {
-      if (item.type === 'COLUMN') {
+      if (item.type === DragTypes.LANE) {
         const dragIndex = item.index;
         const hoverIndex = index;
         if (dragIndex === hoverIndex) {
