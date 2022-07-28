@@ -2,18 +2,19 @@ import { useEffect } from 'react';
 import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useAppState } from '../AppStateContext';
-import { LaneDragItem } from '../components/DragAndDrop/LaneDragItem';
+import { Actions } from '../AppStateTypes';
+import { DragItem } from '../components/DragAndDrop/LaneDragItem';
 
-export const useDragItem = (item: LaneDragItem) => {
+export const useDragItem = (item: DragItem) => {
   const { dispatch } = useAppState();
   const [, drag, preview] = useDrag({
     item,
     begin: () =>
       dispatch({
-        type: 'SET_DRAGGED_ITEM',
+        type: Actions.SET_DRAGGED_ITEM,
         payload: item,
       }),
-    end: () => dispatch({ type: 'SET_DRAGGED_ITEM', payload: undefined }),
+    end: () => dispatch({ type: Actions.SET_DRAGGED_ITEM, payload: undefined }),
   });
   useEffect(() => {
     preview(getEmptyImage(), { captureDraggingState: true });

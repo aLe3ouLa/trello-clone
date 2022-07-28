@@ -1,4 +1,4 @@
-import { LaneDragItem } from './components/DragAndDrop/LaneDragItem';
+import { DragItem } from './components/DragAndDrop/LaneDragItem';
 
 export interface Task {
   id: string;
@@ -13,7 +13,7 @@ export interface List {
 
 export interface AppState {
   lists: List[];
-  draggedItem: LaneDragItem | undefined;
+  draggedItem: DragItem | undefined;
 }
 
 export interface AppStateContextProps {
@@ -21,20 +21,37 @@ export interface AppStateContextProps {
   dispatch: React.Dispatch<Action>;
 }
 
+export enum Actions {
+  ADD_LIST = 'ADD_LIST',
+  ADD_TASK = 'ADD_TASK',
+  MOVE_LIST = 'MOVE_LIST',
+  SET_DRAGGED_ITEM = 'SET_DRAGGED_ITEM',
+  MOVE_TASK = 'MOVE_TASK',
+}
+
 export type Action =
   | {
-      type: 'ADD_LIST';
+      type: Actions.ADD_LIST;
       payload: string;
     }
   | {
-      type: 'ADD_TASK';
+      type: Actions.ADD_TASK;
       payload: { text: string; taskId: string };
     }
   | {
-      type: 'MOVE_LIST';
+      type: Actions.MOVE_LIST;
       payload: { draggedIdx: number; hoverIdx: number };
     }
   | {
-      type: 'SET_DRAGGED_ITEM';
-      payload: LaneDragItem | undefined;
+      type: Actions.SET_DRAGGED_ITEM;
+      payload: DragItem | undefined;
+    }
+  | {
+      type: Actions.MOVE_TASK;
+      payload: {
+        dragIndex: number;
+        hoverIndex: number;
+        sourceLane: string;
+        targetLane: string;
+      };
     };

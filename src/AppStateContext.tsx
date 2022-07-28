@@ -87,6 +87,17 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
     case 'SET_DRAGGED_ITEM': {
       return { ...state, draggedItem: action.payload };
     }
+    case 'MOVE_TASK': {
+      const { dragIndex, hoverIndex, sourceLane, targetLane } = action.payload;
+
+      const sourceLaneIndex = findItemIndexById(state.lists, sourceLane);
+      const targetLaneIndex = findItemIndexById(state.lists, targetLane);
+      const item = state.lists[sourceLaneIndex].tasks.splice(dragIndex, 1)[0];
+      state.lists[targetLaneIndex].tasks.splice(hoverIndex, 0, item);
+
+      return { ...state };
+    }
+
     default: {
       return { ...state };
     }

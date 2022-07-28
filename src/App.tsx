@@ -1,4 +1,5 @@
 import { useAppState } from './AppStateContext';
+import { Actions } from './AppStateTypes';
 import { Column } from './components/Column/Column';
 import { CreateItem } from './components/CreateItem/CreateItem';
 import { CustomDragLayer } from './components/CustomDragLayer/CustomDragLayer';
@@ -23,7 +24,9 @@ function App() {
 
         <CreateItem
           toggleButtonText="+ Add another list"
-          onCreate={(text) => dispatch({ type: 'ADD_LIST', payload: text })}
+          onCreate={(text) =>
+            dispatch({ type: Actions.ADD_LIST, payload: text })
+          }
         />
       </div>
     </>

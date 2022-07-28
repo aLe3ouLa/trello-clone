@@ -4,8 +4,9 @@ import { CreateItem } from '../CreateItem/CreateItem';
 import { useRef } from 'react';
 import { useDragItem } from '../../hooks/useDragItem';
 import { useDrop } from 'react-dnd';
-import { LaneDragItem } from '../DragAndDrop/LaneDragItem';
+import { CardDragItem, LaneDragItem } from '../DragAndDrop/LaneDragItem';
 import { isHidden } from '../../utils/isHidden';
+import { Actions } from '../../AppStateTypes';
 
 interface ColumnProps {
   text: string;
@@ -21,23 +22,39 @@ export const Column = ({ text, index, id, isPreview }: ColumnProps) => {
   const { drag } = useDragItem({ type: 'COLUMN', id, index, text });
 
   const handleCreate = (text: string) => {
-    dispatch({ type: 'ADD_TASK', payload: { text, taskId: id } });
+    dispatch({ type: Actions.ADD_TASK, payload: { text, taskId: id } });
   };
 
   const [, drop] = useDrop({
-    accept: 'COLUMN',
-    hover(item: LaneDragItem) {
-      const dragIndex = item.index;
-      const hoverIndex = index;
-      if (dragIndex === hoverIndex) {
-        return;
-      }
+    accept: ['COLUMN', 'CARD'],
+    hover(item: LaneDragItem | CardDragItem) {
+      if (item.type === 'COLUMN') {
+        const dragIndex = item.index;
+        const hoverIndex = index;
+        if (dragIndex === hoverIndex) {
+          return;
+        }
 
-      dispatch({
-        type: 'MOVE_LIST',
-        payload: { draggedIdx: dragIndex, hoverIdx: hoverIndex },
-      });
-      item.index = hoverIndex;
+        dispatch({
+          type: Actions.MOVE_LIST,
+          payload: { draggedIdx: dragIndex, hoverIdx: hoverIndex },
+        });
+        item.index = hoverIndex;
+      } else {
+        const dragIndex = item.index;
+        const hoverIndex = 0;
+        const sourceLane = item.laneId;
+        const targetLane = id;
+        if (sourceLane === targetLane) {
+          return;
+        }
+        dispatch({
+          type: Actions.MOVE_TASK,
+          payload: { dragIndex, hoverIndex, sourceLane, targetLane },
+        });
+        item.index = hoverIndex;
+        item.laneId = targetLane;
+      }
     },
   });
 
@@ -57,7 +74,13 @@ export const Column = ({ text, index, id, isPreview }: ColumnProps) => {
     >
       <h2 className="pb-2 font-bold ">{text}</h2>
       {state.lists[index].tasks.map((task) => (
-        <Card text={task.text} key={task.id} />
+        <Card
+          text={task.text}
+          key={task.id}
+          index={index}
+          id={task.id}
+          laneId={`${index}`}
+        />
       ))}
       <CreateItem
         toggleButtonText="+ Add a card"
