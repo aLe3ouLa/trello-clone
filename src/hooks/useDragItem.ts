@@ -3,9 +3,9 @@ import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useAppState } from '../AppStateContext';
 import { Actions } from '../AppStateTypes';
-import { LaneDragItem } from '../components/DragAndDrop/LaneDragItem';
+import { DragItem } from '../components/DragAndDrop/LaneDragItem';
 
-export const useDragItem = (item: LaneDragItem) => {
+export const useDragItem = (item: DragItem) => {
   const { dispatch } = useAppState();
   const [, drag, preview] = useDrag({
     item,

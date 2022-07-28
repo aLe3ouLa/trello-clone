@@ -1,4 +1,4 @@
-import { LaneDragItem } from './components/DragAndDrop/LaneDragItem';
+import { DragItem } from './components/DragAndDrop/LaneDragItem';
 
 export interface Task {
   id: string;
@@ -13,7 +13,7 @@ export interface List {
 
 export interface AppState {
   lists: List[];
-  draggedItem: LaneDragItem | undefined;
+  draggedItem: DragItem | undefined;
 }
 
 export interface AppStateContextProps {
@@ -44,7 +44,7 @@ export type Action =
     }
   | {
       type: Actions.SET_DRAGGED_ITEM;
-      payload: LaneDragItem | undefined;
+      payload: DragItem | undefined;
     }
   | {
       type: Actions.MOVE_TASK;

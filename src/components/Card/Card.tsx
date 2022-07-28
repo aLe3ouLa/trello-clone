@@ -13,7 +13,7 @@ interface CardProps {
 
 export const Card = ({ text, id, index, laneId }: CardProps) => {
   const { state, dispatch } = useAppState();
-  const { drag } = useDragItem({ type: 'COLUMN', id, index, text });
+  const { drag } = useDragItem({ type: 'CARD', id, index, text, laneId });
   const ref = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({

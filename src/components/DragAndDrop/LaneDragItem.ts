@@ -12,3 +12,5 @@ export type CardDragItem = {
   text: string;
   type: 'CARD';
 };
+
+export type DragItem = LaneDragItem | CardDragItem;
