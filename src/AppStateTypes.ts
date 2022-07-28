@@ -1,4 +1,4 @@
-import { DragItem } from './components/CustomDragLayer/LaneDragItem';
+import { DragItem } from './components/CustomDragLayer/DragItemTypes';
 
 export interface Task {
   id: string;

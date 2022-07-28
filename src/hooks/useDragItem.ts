@@ -3,7 +3,7 @@ import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useAppState } from '../AppStateContext';
 import { Actions } from '../AppStateTypes';
-import { DragItem } from '../components/CustomDragLayer/LaneDragItem';
+import { DragItem } from '../components/CustomDragLayer/DragItemTypes';
 
 export const useDragItem = (item: DragItem) => {
   const { dispatch } = useAppState();

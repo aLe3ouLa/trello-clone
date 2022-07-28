@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 import { useAppState } from '../../AppStateContext';
 import { Actions } from '../../AppStateTypes';
 import { useDragItem } from '../../hooks/useDragItem';
-import { CardDragItem, DragTypes } from '../CustomDragLayer/LaneDragItem';
+import { CardDragItem, DragTypes } from '../CustomDragLayer/DragItemTypes';
 interface CardProps {
   text: string;
   index: number;

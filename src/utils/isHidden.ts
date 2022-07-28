@@ -1,4 +1,4 @@
-import { DragItem } from '../components/CustomDragLayer/LaneDragItem';
+import { DragItem } from '../components/CustomDragLayer/DragItemTypes';
 
 export const isHidden = (
   isPreview: boolean | undefined,

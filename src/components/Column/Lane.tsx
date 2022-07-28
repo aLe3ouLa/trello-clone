@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useDrop } from 'react-dnd';
 import { useAppState } from '../../AppStateContext';
-import { Actions } from '../../AppStateTypes';
+import { Actions, Task } from '../../AppStateTypes';
 import { useDragItem } from '../../hooks/useDragItem';
 import { isHidden } from '../../utils/isHidden';
 import { Card } from '../Card/Card';
@@ -10,7 +10,7 @@ import {
   CardDragItem,
   DragTypes,
   LaneDragItem,
-} from '../CustomDragLayer/LaneDragItem';
+} from '../CustomDragLayer/DragItemTypes';
 
 interface LaneProps {
   text: string;
@@ -79,10 +79,10 @@ export const Lane = ({ text, index, id, isPreview }: LaneProps) => {
       <h2 className="pb-2 font-bold ">{text}</h2>
 
       {state.lists &&
-        state.lists?.[index]?.tasks?.map((task) => (
+        state.lists[index]?.tasks?.map((task: Task) => (
           <Card
-            text={task.text}
-            key={task.id}
+            text={task?.text}
+            key={task?.id}
             index={index}
             id={task?.id}
             laneId={`${index}`}
