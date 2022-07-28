@@ -6,6 +6,7 @@ import { useDragItem } from '../../hooks/useDragItem';
 import { useDrop } from 'react-dnd';
 import { LaneDragItem } from '../DragAndDrop/LaneDragItem';
 import { isHidden } from '../../utils/isHidden';
+import { Actions } from '../../AppStateTypes';
 
 interface ColumnProps {
   text: string;
@@ -21,7 +22,7 @@ export const Column = ({ text, index, id, isPreview }: ColumnProps) => {
   const { drag } = useDragItem({ type: 'COLUMN', id, index, text });
 
   const handleCreate = (text: string) => {
-    dispatch({ type: 'ADD_TASK', payload: { text, taskId: id } });
+    dispatch({ type: Actions.ADD_TASK, payload: { text, taskId: id } });
   };
 
   const [, drop] = useDrop({
@@ -34,7 +35,7 @@ export const Column = ({ text, index, id, isPreview }: ColumnProps) => {
       }
 
       dispatch({
-        type: 'MOVE_LIST',
+        type: Actions.MOVE_LIST,
         payload: { draggedIdx: dragIndex, hoverIdx: hoverIndex },
       });
       item.index = hoverIndex;
@@ -57,7 +58,13 @@ export const Column = ({ text, index, id, isPreview }: ColumnProps) => {
     >
       <h2 className="pb-2 font-bold ">{text}</h2>
       {state.lists[index].tasks.map((task) => (
-        <Card text={task.text} key={task.id} />
+        <Card
+          text={task.text}
+          key={task.id}
+          index={index}
+          id={task.id}
+          laneId={`${index}`}
+        />
       ))}
       <CreateItem
         toggleButtonText="+ Add a card"
