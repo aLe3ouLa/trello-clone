@@ -4,10 +4,18 @@ export const Menu = () => {
       <div className="flex items-center">
         <h1 className="text-white font-bold pr-6">Trello</h1>
         <ul className="flex items-center  text-white font-bold text-xs">
-          <li className="pr-4">Workspaces</li>
-          <li className="pr-4">Recent</li>
-          <li className="pr-4">Starred</li>
-          <li className="pr-4">Templates</li>
+          <li className="p-2 cursor-pointer hover:rounded-sm hover:bg-blue-700">
+            Workspaces
+          </li>
+          <li className="p-2 cursor-pointer hover:rounded-sm hover:bg-blue-700">
+            Recent
+          </li>
+          <li className="p-2 cursor-pointer hover:rounded-sm hover:bg-blue-700">
+            Starred
+          </li>
+          <li className="p-2 cursor-pointer hover:rounded-sm hover:bg-blue-700">
+            Templates
+          </li>
           <button className="bg-blue-700 pt-2 pb-2 pr-3 pl-3 rounded-sm">
             Create
           </button>
