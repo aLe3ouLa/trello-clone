@@ -1,5 +1,5 @@
-import { useAppState } from './AppStateContext';
-import { Actions, List } from './AppStateTypes';
+import { useAppState } from './context/AppStateContext';
+import { Actions, List } from './context/AppStateTypes';
 import { Lane } from './components/Lane/Lane';
 import { CreateItem } from './components/CreateItem/CreateItem';
 import { CustomDragLayer } from './components/CustomDragLayer/CustomDragLayer';

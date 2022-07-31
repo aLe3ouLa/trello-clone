@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useDrop } from 'react-dnd';
-import { useAppState } from '../../AppStateContext';
-import { Actions, Task } from '../../AppStateTypes';
+import { useAppState } from '../../context/AppStateContext';
+import { Actions, Task } from '../../context/AppStateTypes';
 import { useDragItem } from '../../hooks/useDragItem';
 import { isHidden } from '../../utils/isHidden';
 import { Card } from '../Card/Card';

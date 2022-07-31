@@ -2,8 +2,8 @@ import { createContext, useContext, useReducer } from 'react';
 
 import { v4 as uuid } from 'uuid';
 import { AppState, AppStateContextProps, Action } from './AppStateTypes';
-import { findItemIndexById } from './utils/findItemIndexById';
-import { moveItem } from './utils/moveItem';
+import { findItemIndexById } from '../utils/findItemIndexById';
+import { moveItem } from '../utils/moveItem';
 
 const appData: AppState = {
   lists: [
