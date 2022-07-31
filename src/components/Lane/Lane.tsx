@@ -69,7 +69,7 @@ export const Lane = ({ text, index, id, isPreview }: LaneProps) => {
   return (
     <section
       ref={ref}
-      className={`bg-slate-300 mr-4 rounded-sm h-min p-4 flex-grow-0 w-max-[300px]
+      className={` bg-slate-200 shadow-sm mr-4 rounded-md h-min p-4 flex-grow-0 w-max-[300px]
       ${isPreview ? 'rotate-6' : 'rotate-0'}
       ${
         isHidden(isPreview, state.draggedItem, DragTypes.LANE, id)
@@ -78,7 +78,7 @@ export const Lane = ({ text, index, id, isPreview }: LaneProps) => {
       }
       `}
     >
-      <h2 className="pb-2 font-bold ">{text}</h2>
+      <h2 className="font-bold pb-4">{text}</h2>
 
       {state.lists &&
         state.lists[index]?.tasks
@@ -95,12 +95,7 @@ export const Lane = ({ text, index, id, isPreview }: LaneProps) => {
               />
             );
           })}
-
-      <CreateItem
-        toggleButtonText="+ Add a card"
-        onCreate={handleCreate}
-        dark
-      />
+      <CreateItem toggleButtonText="+ New item" onCreate={handleCreate} dark />
     </section>
   );
 };

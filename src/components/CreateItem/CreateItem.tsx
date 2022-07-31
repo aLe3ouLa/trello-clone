@@ -27,9 +27,9 @@ export const CreateItem = ({
 
   return (
     <button
-      className={`bg-slate-200/25 rounded-sm border-none pt-2 pb-2 pr-3 pl-3  ${
-        dark ? 'text-black' : 'text-white'
-      } cursor-pointer  transition-colors w-full hover:bg-slate-200/50`}
+      className={`border-none rounded-sm p-2 ${
+        dark ? 'text-blue-700 bg-blue-200 ' : 'text-blue-600 bg-blue-100 '
+      } cursor-pointer  transition-colors w-full hover:bg-blue-400/50`}
       style={{ minWidth: '300px' }}
       onClick={() => setShowForm(true)}
     >

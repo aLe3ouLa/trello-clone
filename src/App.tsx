@@ -1,6 +1,6 @@
 import { useAppState } from './AppStateContext';
 import { Actions, List } from './AppStateTypes';
-import { Lane } from './components/Column/Lane';
+import { Lane } from './components/Lane/Lane';
 import { CreateItem } from './components/CreateItem/CreateItem';
 import { CustomDragLayer } from './components/CustomDragLayer/CustomDragLayer';
 import { Menu } from './components/Menu/Menu';
@@ -12,7 +12,7 @@ function App() {
     <>
       <Menu />
       <div
-        className="flex items-start bg-sky-700 p-10"
+        className="flex items-start bg-slate-50 p-10"
         style={{ width: '100vw', height: '100vh' }}
       >
         <CustomDragLayer />

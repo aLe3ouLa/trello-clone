@@ -1,6 +1,6 @@
 import { useDragLayer, XYCoord } from 'react-dnd';
 import { Card } from '../Card/Card';
-import { Lane } from '../Column/Lane';
+import { Lane } from '../Lane/Lane';
 import { DragTypes } from './DragItemTypes';
 
 function getItemStyles(currentOffset: XYCoord | null): React.CSSProperties {

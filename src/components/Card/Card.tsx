@@ -54,7 +54,7 @@ export const Card = ({ text, id, index, laneId, isPreview }: CardProps) => {
   return (
     <article
       ref={ref}
-      className={`bg-slate-50 cursor-pointer mb-1 p-2 w-min-[300px] rounded-sm shadow-black  ${
+      className={`bg-slate-50 cursor-pointer mb-1 p-2 w-min-[300px] rounded-sm shadow-sm  ${
         isPreview ? 'rotate-6' : 'rotate-0'
       }
       ${
